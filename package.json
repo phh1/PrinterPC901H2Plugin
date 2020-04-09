@@ -1,29 +1,35 @@
 {
-  "name": "tj.ehdos.printer",
-  "displayName": "PrinterPC901H2Plugin",
-  "version": "1.0.0",
-  "description": "Printer for PC901H2",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "ecosystem:cordova"
-  ],
-  "author": "Pulatov Farhod",
-  "license": "Apache-2.0",
-  "dependencies": {
-    "cordova-android": "^8.1.0"
-  },
-  "devDependencies": {
-    "cordova-plugin-whitelist": "^1.3.4"
-  },
+  "name": "cordova-plugin-printerPC901H2Plugin",
+  "version": "0.0.1",
+  "description": "Printer PC901H2 plugin.",
   "cordova": {
-    "plugins": {
-      "cordova-plugin-whitelist": {}
-    },
+    "id": "cordova-plugin-printerPC901H2Plugin",
     "platforms": [
       "android"
     ]
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phh1/PrinterPC901H2Plugin.git"
+  },
+  "keywords": [
+    "cordova",
+    "android",
+    "printer",
+    "PC901H2",
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.0.0"
+    }
+  ],
+  "author": "Pulatov F.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/phh1/PrinterPC901H2Plugin/issues"
+  },
+  "homepage": "https://github.com/phh1/PrinterPC901H2Plugin#readme"
 }
