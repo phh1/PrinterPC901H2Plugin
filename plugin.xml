@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="cordova-plugin-printerPC901H2Plugin" version="0.0.1">
+    <name>PrinterPC901H2Plugin</name>
+
+    <description>Printer PC901H2 plugin.</description>
+    <license>MIT</license>
+
+    <keywords>cordova,android,printer,PC901H2</keywords>
+  
+    <engines>
+        <engine name="cordova" version=">=3.0.0"/>
+    </engines>
+  
+    <js-module src="www/printerPC901H2plugin.js" name="printerPC901H2Plugin">
+        <clobbers target="window.plugins.printerPC901H2Plugin" />
+    </js-module>
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="PrinterPC901H2Plugin">
+                <param name="android-package" value="tj.ehdos.cordova.plugin.PrinterPC901H2Plugin"/>
+            </feature>
+        </config-file>
+
+        <source-file src="src/android/PrinterPC901H2Plugin.java" target-dir="src/tj/ehdos/cordova/plugin" />
+    </platform>
+</plugin>
