@@ -32,7 +32,7 @@ import com.smartdevice.aidl.IZKCService;
 
 public class PrinterPC901H2Plugin extends CordovaPlugin {
 	
-  public static String MODULE_FLAG = "module_flag";
+  public static String MODULE_FLAG = "printer_module";
   public static int module_flag = 0;
   public static int DEVICE_MODEL = 0;
   private Handler mhanlder;	
@@ -46,9 +46,9 @@ public class PrinterPC901H2Plugin extends CordovaPlugin {
 
     if(action.equals("load"))
     {
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
-        module_flag = getIntent().getIntExtra(MODULE_FLAG, 8);
+        //InputMethodManager imm = (InputMethodManager)cordova.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        //imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+        //module_flag = cordova.getActivity().getIntent().getIntExtra(MODULE_FLAG, 8);
         //bind service
         bindService();
         PluginResult pluginResult = new PluginResult(PluginResult.Status.OK);
@@ -66,8 +66,7 @@ public class PrinterPC901H2Plugin extends CordovaPlugin {
         return false;
       }
       // Create the toast
-      Toast toast = Toast.makeText(cordova.getActivity(), "OK",
-        DURATION_LONG.equals(duration) ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT);
+      Toast toast = Toast.makeText(cordova.getActivity(), "OK", Toast.LENGTH_SHORT);
       // Display toast
 	  
 	  printGBKText(message);
@@ -76,6 +75,10 @@ public class PrinterPC901H2Plugin extends CordovaPlugin {
       PluginResult pluginResult = new PluginResult(PluginResult.Status.OK);
       callbackContext.sendPluginResult(pluginResult);
       return true;
+    }
+    else
+    {
+        return false;
     }
   }
   
@@ -114,7 +117,7 @@ public class PrinterPC901H2Plugin extends CordovaPlugin {
         public void onServiceDisconnected(ComponentName name) {
             Log.e("client", "onServiceDisconnected");
             mIzkcService = null;
-            Toast.makeText(MainActivity.this, "Error connect aidl", Toast.LENGTH_SHORT).show();
+            Toast.makeText(cordova.getActivity(), "Error connect aidl", Toast.LENGTH_SHORT).show();
             
             sendEmptyMessage(0);
         }
@@ -125,7 +128,7 @@ public class PrinterPC901H2Plugin extends CordovaPlugin {
             mIzkcService = IZKCService.Stub.asInterface(service);
             if(mIzkcService!=null){
                 try {
-                    Toast.makeText(MainActivity.this, "OK", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(cordova.getActivity(), "OK", Toast.LENGTH_SHORT).show();
                     DEVICE_MODEL = mIzkcService.getDeviceModel();
                     mIzkcService.setModuleFlag(module_flag);
                 } catch (RemoteException e) {
@@ -142,11 +145,11 @@ public class PrinterPC901H2Plugin extends CordovaPlugin {
 
         Intent intent = new Intent("com.zkc.aidl.all");
         intent.setPackage("com.smartdevice.aidl");
-        bindService(intent, mServiceConn, Context.BIND_AUTO_CREATE);
+        cordova.getActivity().bindService(intent, mServiceConn, Context.BIND_AUTO_CREATE);
     }
 
     public void unbindService() {
-        unbindService(mServiceConn);
+        cordova.getActivity().unbindService(mServiceConn);
     }
 
    

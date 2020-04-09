@@ -17,6 +17,8 @@
         <clobbers target="window.plugins.printerPC901H2Plugin" />
     </js-module>
     <platform name="android">
+        <resource-file src="ICallBack.aidl" target="aidl/com/smartdevice/aidl/ICallBack.aidl" />
+        <resource-file src="IZKCService.aidl" target="aidl/com/smartdevice/aidl/IZKCService.aidl" />
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="PrinterPC901H2Plugin">
                 <param name="android-package" value="tj.ehdos.cordova.plugin.PrinterPC901H2Plugin"/>
