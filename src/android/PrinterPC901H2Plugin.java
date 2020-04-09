@@ -69,12 +69,22 @@ public class PrinterPC901H2Plugin extends CordovaPlugin {
       Toast toast = Toast.makeText(cordova.getActivity(), "OK", Toast.LENGTH_SHORT);
       // Display toast
 	  
-	  printGBKText(message);
+      printGBKText(message, false);
+      printGBKText("\n\n",false);
       toast.show();
       // Send a positive result to the callbackContext
       PluginResult pluginResult = new PluginResult(PluginResult.Status.OK);
       callbackContext.sendPluginResult(pluginResult);
       return true;
+    }
+    else if(action.equals("printWithSpace"))
+    {
+        printGBKText(message, true);
+        toast.show();
+        // Send a positive result to the callbackContext
+        PluginResult pluginResult = new PluginResult(PluginResult.Status.OK);
+        callbackContext.sendPluginResult(pluginResult);
+        return true;
     }
     else
     {
@@ -140,9 +150,6 @@ public class PrinterPC901H2Plugin extends CordovaPlugin {
     };
 
     public void bindService() {
-        //com.zkc.aidl.all
-        //com.smartdevice.aidl
-
         Intent intent = new Intent("com.zkc.aidl.all");
         intent.setPackage("com.smartdevice.aidl");
         cordova.getActivity().bindService(intent, mServiceConn, Context.BIND_AUTO_CREATE);
@@ -152,9 +159,6 @@ public class PrinterPC901H2Plugin extends CordovaPlugin {
         cordova.getActivity().unbindService(mServiceConn);
     }
 
-   
-    
-
     private void printPrinter() throws RemoteException {
         //mIzkcService.printerInit();
         //mIzkcService.Open();
@@ -163,11 +167,12 @@ public class PrinterPC901H2Plugin extends CordovaPlugin {
 
     }
 
-    private void printGBKText(String text) {
+    private void printGBKText(String textm, Boolean space) {
 
         try {
             mIzkcService.printUnicode_1F30(text);
-            mIzkcService.generateSpace();
+            if(space)
+                mIzkcService.generateSpace();
         } catch (RemoteException e) {
 
             e.printStackTrace();
