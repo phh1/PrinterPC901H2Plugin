@@ -21,6 +21,12 @@ PrinterPC901H2Plugin.prototype.printWithSpace = function(message, successCallbac
   cordova.exec(successCallback, errorCallback, 'PrinterPC901H2Plugin', 'printWithSpace', [options]);
 }
 
+PrinterPC901H2Plugin.prototype.printSpace = function(message, successCallback, errorCallback) {
+  var options = {};
+  options.message = message;
+  cordova.exec(successCallback, errorCallback, 'PrinterPC901H2Plugin', 'printSpace', [options]);
+}
+
 // Installation constructor that binds PrinterPC901H2Plugin to window
 PrinterPC901H2Plugin.install = function() {
   if (!window.plugins) {

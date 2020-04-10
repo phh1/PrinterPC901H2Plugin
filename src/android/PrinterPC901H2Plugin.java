@@ -69,9 +69,33 @@ public class PrinterPC901H2Plugin extends CordovaPlugin {
       Toast toast = Toast.makeText(cordova.getActivity(), "OK", Toast.LENGTH_SHORT);
       // Display toast
 	  
-      printGBKText(message, false);
-      printGBKText("\n\n",false);
+      printGBKTextCute(message);
+      //printGBKText("\n\n");
+      //printGBKTextCute("\n\n");
       toast.show();
+      // Send a positive result to the callbackContext
+      PluginResult pluginResult = new PluginResult(PluginResult.Status.OK);
+      callbackContext.sendPluginResult(pluginResult);
+      return true;
+    }
+    else if(action.equals("printSpace"))
+    {
+      String message;
+      try {
+        JSONObject options = args.getJSONObject(0);
+        message = options.getString("message");
+      } catch (JSONException e) {
+        callbackContext.error("Error encountered: " + e.getMessage());
+        return false;
+      }
+      // Create the toast
+      //Toast toast = Toast.makeText(cordova.getActivity(), "OK", Toast.LENGTH_SHORT);
+      // Display toast
+	  
+      printSpace();
+      //printGBKText("\n\n");
+      //printGBKTextCute("\n\n");
+      //toast.show();
       // Send a positive result to the callbackContext
       PluginResult pluginResult = new PluginResult(PluginResult.Status.OK);
       callbackContext.sendPluginResult(pluginResult);
@@ -79,7 +103,18 @@ public class PrinterPC901H2Plugin extends CordovaPlugin {
     }
     else if(action.equals("printWithSpace"))
     {
-        printGBKText(message, true);
+        String message;
+        try {
+            JSONObject options = args.getJSONObject(0);
+            message = options.getString("message");
+          } catch (JSONException e) {
+            callbackContext.error("Error encountered: " + e.getMessage());
+            return false;
+          }
+
+        printGBKText(message);
+
+        Toast toast = Toast.makeText(cordova.getActivity(), "OK", Toast.LENGTH_SHORT);
         toast.show();
         // Send a positive result to the callbackContext
         PluginResult pluginResult = new PluginResult(PluginResult.Status.OK);
@@ -167,12 +202,37 @@ public class PrinterPC901H2Plugin extends CordovaPlugin {
 
     }
 
-    private void printGBKText(String textm, Boolean space) {
+    private void printSpace() {
+        try {
+            mIzkcService.printGBKText("\n");
+
+
+        } catch (RemoteException e) {
+
+            e.printStackTrace();
+        }
+    }
+
+    private void printGBKTextCute(String textm) {
 
         try {
-            mIzkcService.printUnicode_1F30(text);
-            if(space)
-                mIzkcService.generateSpace();
+            mIzkcService.printUnicode_1F30(textm);
+            mIzkcService.printGBKText("\n");
+            //if(space)
+              //  mIzkcService.generateSpace();
+
+        } catch (RemoteException e) {
+
+            e.printStackTrace();
+        }
+    }
+
+    private void printGBKText(String textm) {
+
+        try {
+            mIzkcService.printUnicode_1F30(textm);
+            mIzkcService.generateSpace();
+
         } catch (RemoteException e) {
 
             e.printStackTrace();
