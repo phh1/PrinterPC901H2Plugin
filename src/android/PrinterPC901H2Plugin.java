@@ -204,7 +204,7 @@ public class PrinterPC901H2Plugin extends CordovaPlugin {
 
     private void printSpace() {
         try {
-            mIzkcService.printGBKText("\n");
+            mIzkcService.printGBKText("\n\n");
 
 
         } catch (RemoteException e) {
